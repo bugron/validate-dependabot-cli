@@ -108,6 +108,14 @@ describe('error loggers', () => {
 
             expect(loggerStub).toBeCalledWith(JSON.stringify(errorArray));
         });
+
+        test('prettifies validation errors', () => {
+            jsonLogger(errorArray, true);
+
+            expect(loggerStub).toBeCalledWith(
+                JSON.stringify(errorArray, null, 2),
+            );
+        });
     });
 
     describe('markdownLogger', () => {
