@@ -1,62 +1,62 @@
 {
-  "name": "@bugron/validate-dependabot-yaml",
-  "version": "1.1.2",
-  "private": true,
-  "description": "CLI for validating Dependabot v2 YAML configuration files",
-  "main": "dist/run.js",
-  "type": "module",
-  "bin": {
-    "@bugron/validate-dependabot-yaml": "dist/run.js"
-  },
-  "files": [
-    "dist"
-  ],
-  "engines": {
-    "node": ">=20"
-  },
-  "scripts": {
-    "build": "tsc",
-    "format": "prettier --write **/*.ts",
-    "format-check": "prettier --check **/*.ts",
-    "lint": "eslint src/**/*.ts",
-    "package": "ncc build --source-map --license licenses.txt",
-    "test": "vitest run",
-    "build_test": "tsc && pnpm test",
-    "all": "pnpm build && pnpm format && pnpm lint && pnpm package && pnpm test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/marocchino/validate-dependabot.git"
-  },
-  "keywords": [
-    "actions",
-    "node",
-    "setup"
-  ],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "ajv": "^6.12.6",
-    "node-fetch": "2.6.7",
-    "yaml": "^2.4.5"
-  },
-  "devDependencies": {
-    "@types/node": "^20.14.10",
-    "@types/node-fetch": "^2.6.2",
-    "@typescript-eslint/parser": "^7.7.1",
-    "@vercel/ncc": "^0.38.1",
-    "@vitest/coverage-v8": "^2.0.5",
-    "eslint": "^8.56.0",
-    "eslint-plugin-github": "^4.10.1",
-    "eslint-plugin-jest": "^28.6.0",
-    "eslint-plugin-prettier": "^5.1.3",
-    "js-yaml": "^4.1.0",
-    "meow": "^13.2.0",
-    "prettier": "3.2.5",
-    "release-it": "^17.5.0",
-    "ts-jest": "^29.1.1",
-    "tsup": "^8.2.4",
-    "typescript": "^5.4.5",
-    "vitest": "^2.0.5"
-  }
+    "name": "@bugron/validate-dependabot-yaml",
+    "version": "1.1.2",
+    "private": true,
+    "description": "CLI for validating Dependabot v2 YAML configuration files",
+    "main": "dist/run.js",
+    "type": "module",
+    "bin": {
+        "@bugron/validate-dependabot-yaml": "dist/run.js"
+    },
+    "files": [
+        "dist"
+    ],
+    "engines": {
+        "node": ">=20"
+    },
+    "scripts": {
+        "build": "tsc",
+        "format": "prettier --write **/*.ts",
+        "format-check": "prettier --check **/*.ts",
+        "lint": "eslint src/**/*.ts",
+        "package": "ncc build --source-map --license licenses.txt",
+        "test": "vitest run",
+        "build_test": "tsc && pnpm test",
+        "all": "pnpm build && pnpm format && pnpm lint && pnpm package && pnpm test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/marocchino/validate-dependabot.git"
+    },
+    "keywords": [
+        "actions",
+        "node",
+        "setup"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "ajv": "^6.12.6",
+        "node-fetch": "2.6.7",
+        "yaml": "^2.4.5"
+    },
+    "devDependencies": {
+        "@types/node": "^20.14.10",
+        "@types/node-fetch": "^2.6.2",
+        "@typescript-eslint/parser": "^7.7.1",
+        "@vercel/ncc": "^0.38.1",
+        "@vitest/coverage-v8": "^2.0.5",
+        "eslint": "^8.56.0",
+        "eslint-plugin-github": "^4.10.1",
+        "eslint-plugin-jest": "^28.6.0",
+        "eslint-plugin-prettier": "^5.1.3",
+        "js-yaml": "^4.1.0",
+        "meow": "^13.2.0",
+        "prettier": "3.2.5",
+        "release-it": "^17.5.0",
+        "ts-jest": "^29.1.1",
+        "tsup": "^8.2.4",
+        "typescript": "^5.4.5",
+        "vitest": "^2.0.5"
+    }
 }
