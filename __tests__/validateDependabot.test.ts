@@ -4,15 +4,11 @@ import { validateDependabotYaml } from '../src/validateDependabotYaml.js';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-const successConfig = readFileSync(
-    path.join(process.cwd(), '.github/dependabot.yml'),
-    'utf-8',
-);
+const getConfig = (configPath: string): string =>
+    readFileSync(path.join(process.cwd(), configPath), 'utf-8');
 
-const errorConfig = readFileSync(
-    path.join(process.cwd(), '__tests__/dependabot-error.yml'),
-    'utf-8',
-);
+const successConfig = getConfig('.github/dependabot.yml');
+const errorConfig = getConfig('__tests__/configs/dependabot-error.yml');
 
 describe('validateDependabot', () => {
     test('no errors', async () => {
@@ -117,6 +113,42 @@ describe('validateDependabot', () => {
                         passingSchemas: null,
                     },
                     message: 'should match exactly one schema in oneOf',
+                },
+                {
+                    keyword: 'customError',
+                    dataPath: '.updates',
+                    schemaPath: '#/customError',
+                    params: {
+                        propertyName: 'customError',
+                    },
+                    message:
+                        "Update configs must have a unique combination of 'package-ecosystem', 'directory', and 'target-branch'",
+                },
+            ],
+        });
+    });
+
+    test.each([
+        ['__tests__/configs/dependabot-unique-combination-error.yml'],
+        ['__tests__/configs/dependabot-unique-combination-error2.yml'],
+    ])(`with unique combination error: %s`, async configPath => {
+        const config = readFileSync(
+            path.join(process.cwd(), configPath),
+            'utf-8',
+        );
+
+        expect(await validateDependabotYaml(config)).toEqual({
+            message: `failure`,
+            errors: [
+                {
+                    keyword: 'customError',
+                    dataPath: '.updates',
+                    schemaPath: '#/customError',
+                    params: {
+                        propertyName: 'customError',
+                    },
+                    message:
+                        "Update configs must have a unique combination of 'package-ecosystem', 'directory', and 'target-branch'",
                 },
             ],
         });

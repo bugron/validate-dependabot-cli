@@ -1,0 +1,20 @@
+version: 2
+updates:
+    - package-ecosystem: 'gradle'
+      directory: '/demo1/'
+      allow:
+          - dependency-name: org.something:something-for-frontend
+      schedule:
+          interval: weekly
+      labels:
+          - 'dependencies'
+          - 'automatic-merge'
+
+    - package-ecosystem: 'gradle'
+      directory: '/demo1/'
+      ignore:
+          - dependency-name: org.something:something-else-for-frontend
+      schedule:
+          interval: weekly
+      labels:
+          - 'dependencies'
