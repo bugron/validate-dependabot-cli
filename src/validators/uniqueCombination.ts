@@ -1,9 +1,16 @@
 import type { ErrorObject } from 'ajv';
 import type { parseDependabotYaml } from '../parseDependabotYaml.js';
 
+/**
+ * Fixes the issue mentioned in https://github.com/marocchino/validate-dependabot/issues/743
+ * See docs: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#directory
+ *
+ * Directory/directories values must be unique and cannot overlap with the directory or directories entries in blocks that have the same ecosystem and target-branch.
+ */
 export function uniqueCombination(
     json: ReturnType<typeof parseDependabotYaml>,
 ): ErrorObject | undefined {
+    // 1. Group updates by package-ecosystem and target-branch
     const groupedUpdates = json.updates.reduce(
         (allUpdates, update) => {
             const key = `${update['package-ecosystem']}-${update['target-branch']}`;
@@ -16,9 +23,10 @@ export function uniqueCombination(
     );
 
     const hasUniqueConstraintError = Object.keys(groupedUpdates).some(key => {
-        const groupUpdate = groupedUpdates[key];
+        const groupUpdates = groupedUpdates[key];
 
-        const allDirectories = groupUpdate?.flatMap(update => {
+        // 2. Collect all directories
+        const allDirectories = groupUpdates?.flatMap(update => {
             if ('directory' in update) {
                 return [update.directory];
             }
@@ -26,6 +34,7 @@ export function uniqueCombination(
             return update.directories;
         });
 
+        // 3. Check if there are any duplicate directories
         return new Set(allDirectories).size !== allDirectories?.length;
     });
 
