@@ -1,5 +1,11 @@
 # @bugron/validate-dependabot-yaml
 
+## 0.1.6
+
+### Patch Changes
+
+-   308db51: Updated cli help text and readme, added a lot of test cases from official documentation
+
 ## 0.1.5
 
 ### Patch Changes
