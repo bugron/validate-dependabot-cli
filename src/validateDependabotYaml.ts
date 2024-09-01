@@ -1,7 +1,7 @@
 import Ajv, { type ErrorObject } from 'ajv';
-import fetch from 'node-fetch';
 import { parseDependabotYaml } from './parseDependabotYaml.js';
 import { customValidations } from './customValidations.js';
+import { fetchSchema } from './fetchSchema.js';
 
 export async function validateDependabotYaml(
     dependabotYamlContents: string,
@@ -17,12 +17,7 @@ export async function validateDependabotYaml(
 
     let schema = v2Schema;
     if (!schema) {
-        // load schema
-        const response = await fetch(
-            'https://json.schemastore.org/dependabot-2.0.json',
-        );
-
-        schema = (await response.json()) as object;
+        schema = await fetchSchema();
     }
 
     // validate
