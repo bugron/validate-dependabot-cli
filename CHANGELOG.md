@@ -1,5 +1,11 @@
 # @bugron/validate-dependabot-yaml
 
+## 0.1.4
+
+### Patch Changes
+
+-   c317f8d: Fix typos in readme, update usage
+
 ## 0.1.3
 
 ### Patch Changes
