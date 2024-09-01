@@ -1,62 +1,30 @@
-<p align="center">
-  <a href="https://github.com/marocchino/validate-dependabot/actions"><img alt="typescript-action status" src="https://github.com/marocchino/validate-dependabot/workflows/build-test/badge.svg"></a>
-</p>
-
-This action tests the dependabot.yml against the official JSON schema. It does not detect all invalid dependabot files as dependabot has extra validation beyond the JSON schema.
+This CLI tests the dependabot.yml against the official v2 JSON schema. It does not detect all invalid dependabot files as dependabot has extra validation beyond the JSON schema.
 
 ## Why?
 
 If you get a validation error when editing your config, you won't know if there's a problem until the next dependabot runs.
 Even if the cycle is long and the alarm is not set, it may be detected much later.
-This library allows you to find some problems in the PR stage.
+This CLI allows you to find some problems even before commiting dependabot.yml.
 
 ## Usage
 
-```yaml
-name: dependabot validate
-
-on:
-  pull_request:
-    paths:
-      - '.github/dependabot.yml'
-      - '.github/workflows/dependabot-validate.yml'
-jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: marocchino/validate-dependabot@v3
-        id: validate
-      - uses: marocchino/sticky-pull-request-comment@v2
-        if: always()
-        with:
-          header: validate-dependabot
-          message: ${{ steps.validate.outputs.markdown }}
 ```
+$ @bugron/validate-dependabot-yaml <path>
 
-## Inputs
+<path>
+  Path to the dependabot configuration file relative to current working directory, .github/dependabot.yml by default
 
-### `path`
+Options
+  --logger, -l  Logger type (json, markdown)
+  --pretty, -p  Only for json logger, prettify JSON output
 
-**Required** path of config file. Default `".github/dependabot.yml"`.
+Output
+  Success: process exits with status 0, no output is logged
+  Failure: process exits with status 1, JSON or Markdown formatted validation error messages are logged
 
-### `success_message`
-
-**Required** display on success. Default `"✅dependabot config looks good 👍"`.
-
-### `failure_message`
-
-**Required** display on failure. Default `"🚫 dependabot errors"`.
-
-## Outputs
-
-### `raw`
-
-response body as json string
-
-### `markdown`
-
-errors as markdown table
+Examples
+$ @bugron/validate-dependabot-yaml .github/dependabot.yml --logger=json --pretty
+```
 
 ## Any problem?
 
