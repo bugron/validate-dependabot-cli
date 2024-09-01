@@ -8,8 +8,6 @@ import v2Schema from './dependabot-2.0.json';
 const getConfig = (configPath: string): string =>
     readFileSync(path.join(process.cwd(), configPath), 'utf-8');
 
-const errorConfig = getConfig('__tests__/configs/dependabot-error.yml');
-
 describe('validateDependabot', () => {
     test.each([
         ['.github/dependabot.yml'],
@@ -23,7 +21,9 @@ describe('validateDependabot', () => {
         });
     });
 
-    test('with errors', async () => {
+    test('with errors: __tests__/configs/dependabot-error.yml', async () => {
+        const errorConfig = getConfig('__tests__/configs/dependabot-error.yml');
+
         expect(await validateDependabotYaml(errorConfig, v2Schema)).toEqual({
             message: `failure`,
             errors: [
@@ -135,8 +135,8 @@ describe('validateDependabot', () => {
     });
 
     test.each([
-        ['__tests__/configs/dependabot-unique-combination-error.yml'],
-        ['__tests__/configs/dependabot-unique-combination-error2.yml'],
+        ['__tests__/configs/dependabot-error-unique-combination.yml'],
+        ['__tests__/configs/dependabot-error-unique-combination-2.yml'],
     ])(`with unique combination error: %s`, async configPath => {
         const config = getConfig(configPath);
 
