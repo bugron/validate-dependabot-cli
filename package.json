@@ -16,6 +16,7 @@
     "scripts": {
         "build": "tsc",
         "bundle": "tsup",
+        "dev": "tsup --watch",
         "format": "prettier --write **/*.ts",
         "format-check": "prettier --check **/*.ts",
         "lint": "eslint src/**/*.ts",
