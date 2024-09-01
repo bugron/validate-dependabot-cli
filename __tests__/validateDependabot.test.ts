@@ -1,11 +1,15 @@
-import { test, describe, expect } from 'vitest';
+import { test, describe, expect, vi } from 'vitest';
 
 import path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { validateDependabotYaml } from '../src/validateDependabotYaml.js';
 import v2Schema from './dependabot-2.0.json';
 
-const getConfig = (configPath: string): string =>
+vi.mock('../src/fetchSchema.js', () => ({
+    fetchSchema: () => v2Schema,
+}));
+
+const readConfig = (configPath: string): string =>
     readFileSync(path.join(process.cwd(), configPath), 'utf-8');
 
 describe('validateDependabot', () => {
@@ -14,17 +18,19 @@ describe('validateDependabot', () => {
         ['__tests__/configs/dependabot-with-group.yml'],
         ['__tests__/configs/dependabot-with-multiple-groups.yml'],
     ])(`with no errors: %s`, async configPath => {
-        const config = getConfig(configPath);
+        const config = readConfig(configPath);
 
         expect(await validateDependabotYaml(config, v2Schema)).toEqual({
             message: 'success',
         });
     });
 
-    test('with errors: __tests__/configs/dependabot-error.yml', async () => {
-        const errorConfig = getConfig('__tests__/configs/dependabot-error.yml');
+    test('with errors: __tests__/configs/dependabot-error.yml, fetches schema', async () => {
+        const errorConfig = readConfig(
+            '__tests__/configs/dependabot-error.yml',
+        );
 
-        expect(await validateDependabotYaml(errorConfig, v2Schema)).toEqual({
+        expect(await validateDependabotYaml(errorConfig)).toEqual({
             message: `failure`,
             errors: [
                 {
@@ -138,7 +144,7 @@ describe('validateDependabot', () => {
         ['__tests__/configs/dependabot-error-unique-combination.yml'],
         ['__tests__/configs/dependabot-error-unique-combination-2.yml'],
     ])(`with unique combination error: %s`, async configPath => {
-        const config = getConfig(configPath);
+        const config = readConfig(configPath);
 
         expect(await validateDependabotYaml(config, v2Schema)).toEqual({
             message: `failure`,
