@@ -21,11 +21,11 @@ describe('validateDependabot', () => {
         test.each(['.github/dependabot.yml', ...successConfigs])(
             '%s',
             async configPath => {
-        const config = readConfig(configPath);
+                const config = readConfig(configPath);
 
-        expect(await validateDependabotYaml(config, v2Schema)).toEqual({
-            message: 'success',
-        });
+                expect(await validateDependabotYaml(config, v2Schema)).toEqual({
+                    message: 'success',
+                });
             },
         );
     });
@@ -146,7 +146,7 @@ describe('validateDependabot', () => {
     });
 
     test.each([
-        ['__tests__/configs/dependabot-error-unique-combination.yml'],
+        ['__tests__/configs/dependabot-error-unique-combination-1.yml'],
         ['__tests__/configs/dependabot-error-unique-combination-2.yml'],
     ])(`with unique combination error: %s`, async configPath => {
         const config = readConfig(configPath);
