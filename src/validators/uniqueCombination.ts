@@ -26,11 +26,7 @@ export function uniqueCombination(
             return update.directories;
         });
 
-        if (!allDirectories?.length) {
-            return false;
-        }
-
-        return new Set(allDirectories).size !== allDirectories.length;
+        return new Set(allDirectories).size !== allDirectories?.length;
     });
 
     if (hasUniqueConstraintError) {
