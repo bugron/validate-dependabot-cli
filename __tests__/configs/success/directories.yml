@@ -1,0 +1,50 @@
+version: 2
+updates:
+    - package-ecosystem: 'composer'
+      # Files stored in repository root
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+
+    - package-ecosystem: 'npm'
+      # Files stored in `app` directory
+      directory: '/app'
+      schedule:
+          interval: 'weekly'
+
+    - package-ecosystem: 'github-actions'
+      # Workflow files stored in the default location of `.github/workflows`. (You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.)
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+
+    - package-ecosystem: 'bundler'
+      directories:
+          - '/frontend'
+          - '/backend'
+          - '/admin'
+      schedule:
+          interval: 'weekly'
+
+    - package-ecosystem: 'bundler'
+      directory: '/'
+      schedule:
+          interval: 'daily'
+
+    - package-ecosystem: 'composer'
+      directories:
+          - '/lib-*'
+      schedule:
+          interval: 'weekly'
+
+    - package-ecosystem: 'composer'
+      directories:
+          - '*'
+      schedule:
+          interval: 'weekly'
+
+    - package-ecosystem: 'composer'
+      directories:
+          - '**/*'
+      schedule:
+          interval: 'weekly'

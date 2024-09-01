@@ -1,0 +1,10 @@
+# Specify a milestone for pull requests
+
+version: 2
+updates:
+    - package-ecosystem: 'npm'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+      # Associate pull requests with milestone "4"
+      milestone: 4

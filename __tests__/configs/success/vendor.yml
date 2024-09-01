@@ -1,0 +1,10 @@
+# Configure version updates for both dependencies defined in manifests and vendored dependencies
+
+version: 2
+updates:
+    - package-ecosystem: 'bundler'
+      # Raise pull requests to update vendored dependencies that are checked in to the repository
+      vendor: true
+      directory: '/'
+      schedule:
+          interval: 'weekly'

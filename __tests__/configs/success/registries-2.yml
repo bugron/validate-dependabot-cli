@@ -1,0 +1,22 @@
+# Allow Dependabot to use one of the two defined private registries
+# when updating dependency versions for this ecosystem
+
+version: 2
+registries:
+    maven-github:
+        type: maven-repository
+        url: https://maven.pkg.github.com/octocat
+        username: octocat
+        password: ${{secrets.MY_ARTIFACTORY_PASSWORD}}
+    npm-npmjs:
+        type: npm-registry
+        url: https://registry.npmjs.org
+        username: octocat
+        password: ${{secrets.MY_NPM_PASSWORD}}
+updates:
+    - package-ecosystem: 'gitsubmodule'
+      directory: '/'
+      registries:
+          - maven-github
+      schedule:
+          interval: 'monthly'

@@ -1,0 +1,16 @@
+# Set update schedule for each package manager
+
+version: 2
+updates:
+    - package-ecosystem: 'github-actions'
+      # Workflow files stored in the default location of `.github/workflows`. (You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.)
+      directory: '/'
+      schedule:
+          # Check for updates to GitHub Actions every weekday
+          interval: 'daily'
+
+    - package-ecosystem: 'composer'
+      directory: '/'
+      schedule:
+          # Check for updates managed by Composer once a week
+          interval: 'weekly'

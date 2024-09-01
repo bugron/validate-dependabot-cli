@@ -1,0 +1,19 @@
+# `dependabot.yml` file using the `update-types` option to group updates.
+# Any packages matching the pattern @angular* where the highest resolvable
+# version is minor or patch will be grouped together.
+# Grouping rules apply to version updates only.
+
+version: 2
+updates:
+    - package-ecosystem: 'npm'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+      groups:
+          angular:
+              applies-to: version-updates
+              patterns:
+                  - '@angular*'
+              update-types:
+                  - 'minor'
+                  - 'patch'

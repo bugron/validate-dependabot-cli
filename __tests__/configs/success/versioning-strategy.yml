@@ -1,0 +1,10 @@
+# Example configuration for customizing the manifest version strategy
+
+version: 2
+updates:
+    - package-ecosystem: 'composer'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+      # Increase the version requirements for Composer only when required
+      versioning-strategy: increase-if-necessary

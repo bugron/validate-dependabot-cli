@@ -1,0 +1,13 @@
+# Specify reviewers for pull requests
+
+version: 2
+updates:
+    - package-ecosystem: 'pip'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+      # Add reviewers
+      reviewers:
+          - 'octocat'
+          - 'my-username'
+          - 'my-org/python-team'

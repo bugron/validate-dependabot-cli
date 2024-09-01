@@ -1,0 +1,9 @@
+# Set a time for checks
+version: 2
+updates:
+    - package-ecosystem: 'npm'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+          # Check for npm updates at 9am UTC
+          time: '09:00'

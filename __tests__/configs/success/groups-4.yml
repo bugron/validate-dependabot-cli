@@ -1,0 +1,29 @@
+# `dependabot.yml` file using the `update-types` option to group updates
+# in conjunction with an `ignore` condition. If you do not want updates
+# to `major` versions of `@angular*` packages, you can specify an `ignore` condition.
+# Grouping rules for both version updates and security updates are specified.
+
+version: 2
+updates:
+    - package-ecosystem: 'npm'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+      groups:
+          angular:
+              applies-to: version-updates
+              patterns:
+                  - '@angular*'
+              update-types:
+                  - 'minor'
+                  - 'patch'
+          minor-and-patch:
+              applies-to: security-updates
+              patterns:
+                  - '@angular*'
+              update-types:
+                  - 'patch'
+                  - 'minor'
+      ignore:
+          - dependency-name: '@angular*'
+            update-types: ['version-update:semver-major']

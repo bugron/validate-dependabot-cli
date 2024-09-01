@@ -1,7 +1,7 @@
 import { test, describe, expect, vi } from 'vitest';
 
 import path from 'node:path';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { validateDependabotYaml } from '../src/validateDependabotYaml.js';
 import v2Schema from './dependabot-2.0.json';
 
@@ -13,16 +13,21 @@ const readConfig = (configPath: string): string =>
     readFileSync(path.join(process.cwd(), configPath), 'utf-8');
 
 describe('validateDependabot', () => {
-    test.each([
-        ['.github/dependabot.yml'],
-        ['__tests__/configs/dependabot-with-group.yml'],
-        ['__tests__/configs/dependabot-with-multiple-groups.yml'],
-    ])(`with no errors: %s`, async configPath => {
+    describe('with no errors', () => {
+        const successConfigs = readdirSync('__tests__/configs/success')
+            .filter(file => !file.includes('error'))
+            .map(file => `__tests__/configs/success/${file}`);
+
+        test.each(['.github/dependabot.yml', ...successConfigs])(
+            '%s',
+            async configPath => {
         const config = readConfig(configPath);
 
         expect(await validateDependabotYaml(config, v2Schema)).toEqual({
             message: 'success',
         });
+            },
+        );
     });
 
     test('with errors: __tests__/configs/dependabot-error.yml, fetches schema', async () => {

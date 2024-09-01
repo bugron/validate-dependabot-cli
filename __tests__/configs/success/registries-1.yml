@@ -1,0 +1,13 @@
+version: 2
+registries:
+    gradle-artifactory:
+        type: maven-repository
+        url: https://acme.jfrog.io/artifactory/my-gradle-registry
+        username: octocat
+        password: ${{secrets.MY_ARTIFACTORY_PASSWORD}}
+updates:
+    - package-ecosystem: 'gradle'
+      directory: '/'
+      registries: '*'
+      schedule:
+          interval: 'monthly'

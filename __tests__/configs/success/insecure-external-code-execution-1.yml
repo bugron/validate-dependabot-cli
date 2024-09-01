@@ -1,0 +1,15 @@
+# Allow external code execution when updating dependencies from private registries
+
+version: 2
+registries:
+    ruby-github:
+        type: rubygems-server
+        url: https://rubygems.pkg.github.com/octocat/github_api
+        token: ${{secrets.MY_GITHUB_PERSONAL_TOKEN}}
+updates:
+    - package-ecosystem: 'bundler'
+      directory: '/rubygems-server'
+      insecure-external-code-execution: allow
+      registries: '*'
+      schedule:
+          interval: 'monthly'

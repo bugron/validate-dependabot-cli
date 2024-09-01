@@ -1,0 +1,33 @@
+# Use `ignore` to specify dependencies that should not be updated
+
+version: 2
+updates:
+    - package-ecosystem: 'npm'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+      ignore:
+          - dependency-name: 'express'
+            # For Express, ignore all Dependabot updates for version 4 and 5
+            versions: ['4.x', '5.x']
+            # For Lodash, ignore all updates
+          - dependency-name: 'lodash'
+            # For AWS SDK, ignore all patch updates for version updates only
+          - dependency-name: 'aws-sdk'
+            update-types: ['version-update:semver-patch']
+    - package-ecosystem: 'github-actions'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+      ignore:
+          - dependency-name: 'actions/checkout'
+            # For GitHub Actions, ignore all updates greater than or equal to version 3
+            versions: ['>= 3'] # This is a string in GH docs!!!
+          - dependency-name: 'lodash:*'
+            versions: ['>=1.0.0']
+          - dependency-name: 'sphinx'
+            versions: ['[1.1,)']
+          - dependency-name: '@types/node'
+            update-types: ['version-update:semver-patch']
+          - dependency-name: 'django*'
+            versions: ['11']
