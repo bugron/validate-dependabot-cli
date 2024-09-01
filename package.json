@@ -16,13 +16,16 @@
     },
     "scripts": {
         "build": "tsc",
+        "bundle": "tsup",
         "format": "prettier --write **/*.ts",
         "format-check": "prettier --check **/*.ts",
         "lint": "eslint src/**/*.ts",
         "package": "ncc build --source-map --license licenses.txt",
         "test": "vitest run",
         "build_test": "tsc && pnpm test",
-        "all": "pnpm build && pnpm format && pnpm lint && pnpm package && pnpm test"
+        "all": "pnpm build && pnpm format-check && pnpm lint && pnpm bundle && pnpm test",
+        "prepublishOnly": "pnpm all",
+        "local-release": "changeset version && changeset publish"
     },
     "repository": {
         "type": "git",
