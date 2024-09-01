@@ -24,7 +24,7 @@
         "build_test": "tsc && pnpm test",
         "all": "pnpm build && pnpm format-check && pnpm lint && pnpm bundle && pnpm test",
         "prepublishOnly": "pnpm all",
-        "local-release": "changeset version && changeset publish"
+        "local-release": "pnpm all && changeset version && changeset publish"
     },
     "repository": {
         "type": "git",
