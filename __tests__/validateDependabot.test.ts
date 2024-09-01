@@ -1,24 +1,30 @@
 import { test, describe, expect } from 'vitest';
 
-import { validateDependabotYaml } from '../src/validateDependabotYaml.js';
-import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import { readFileSync } from 'node:fs';
+import { validateDependabotYaml } from '../src/validateDependabotYaml.js';
+import v2Schema from './dependabot-2.0.json';
 
 const getConfig = (configPath: string): string =>
     readFileSync(path.join(process.cwd(), configPath), 'utf-8');
 
-const successConfig = getConfig('.github/dependabot.yml');
 const errorConfig = getConfig('__tests__/configs/dependabot-error.yml');
 
 describe('validateDependabot', () => {
-    test('no errors', async () => {
-        expect(await validateDependabotYaml(successConfig)).toEqual({
+    test.each([
+        ['.github/dependabot.yml'],
+        ['__tests__/configs/dependabot-with-group.yml'],
+        ['__tests__/configs/dependabot-with-multiple-groups.yml'],
+    ])(`with no errors: %s`, async configPath => {
+        const config = getConfig(configPath);
+
+        expect(await validateDependabotYaml(config, v2Schema)).toEqual({
             message: 'success',
         });
     });
 
     test('with errors', async () => {
-        expect(await validateDependabotYaml(errorConfig)).toEqual({
+        expect(await validateDependabotYaml(errorConfig, v2Schema)).toEqual({
             message: `failure`,
             errors: [
                 {
@@ -132,12 +138,9 @@ describe('validateDependabot', () => {
         ['__tests__/configs/dependabot-unique-combination-error.yml'],
         ['__tests__/configs/dependabot-unique-combination-error2.yml'],
     ])(`with unique combination error: %s`, async configPath => {
-        const config = readFileSync(
-            path.join(process.cwd(), configPath),
-            'utf-8',
-        );
+        const config = getConfig(configPath);
 
-        expect(await validateDependabotYaml(config)).toEqual({
+        expect(await validateDependabotYaml(config, v2Schema)).toEqual({
             message: `failure`,
             errors: [
                 {
