@@ -1,5 +1,11 @@
 # @bugron/validate-dependabot-yaml
 
+## 0.1.5
+
+### Patch Changes
+
+-   9db78b0: Implement custom validators, fix the unique combination issue, improve tests
+
 ## 0.1.4
 
 ### Patch Changes
