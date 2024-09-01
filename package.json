@@ -21,6 +21,7 @@
         "format-check": "prettier --check **/*.ts",
         "lint": "eslint src/**/*.ts",
         "test:watch": "vitest",
+        "test:coverage": "pnpm test -- --coverage",
         "test": "vitest run",
         "build_test": "tsc && pnpm test",
         "all": "pnpm build && pnpm format-check && pnpm lint && pnpm bundle && pnpm test",
