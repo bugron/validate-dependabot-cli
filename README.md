@@ -1,4 +1,4 @@
-This CLI tests the dependabot.yml against the official v2 JSON schema. It does not detect all invalid dependabot files as dependabot has extra validation beyond the JSON schema.
+This CLI tests the dependabot.yml against the [official v2 JSON schema](https://json.schemastore.org/dependabot-2.0.json). It does not detect all invalid dependabot files as dependabot has extra validation beyond the JSON schema.
 
 ## Why?
 
