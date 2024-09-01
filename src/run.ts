@@ -9,11 +9,12 @@ async function run(cliResult: typeof cli): Promise<void> {
     const dependabotYamlRelativePath =
         cliResult.input[0] ?? '.github/dependabot.yml';
 
+    const safeSuffix = path
+        .normalize(dependabotYamlRelativePath)
+        .replace(/^(\.\.(\/|\\|$))+/, '');
+
     // load target file
-    const yaml = readFileSync(
-        path.join(process.cwd(), dependabotYamlRelativePath),
-        'utf-8',
-    );
+    const yaml = readFileSync(path.join(process.cwd(), safeSuffix), 'utf-8');
 
     const { errors } = await validateDependabotYaml(yaml);
 
