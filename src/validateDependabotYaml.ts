@@ -5,6 +5,7 @@ import { customValidations } from './customValidations.js';
 
 export async function validateDependabotYaml(
     dependabotYamlContents: string,
+    v2Schema?: object,
 ): Promise<{
     errors?: ErrorObject[];
     message: string;
@@ -14,12 +15,15 @@ export async function validateDependabotYaml(
     const json = parseDependabotYaml(dependabotYamlContents);
     const customErrors = customValidations(json);
 
-    // load schema
-    const response = await fetch(
-        'https://json.schemastore.org/dependabot-2.0.json',
-    );
+    let schema = v2Schema;
+    if (!schema) {
+        // load schema
+        const response = await fetch(
+            'https://json.schemastore.org/dependabot-2.0.json',
+        );
 
-    const schema = (await response.json()) as object;
+        schema = (await response.json()) as object;
+    }
 
     // validate
     const validate = ajv.compile(schema);
