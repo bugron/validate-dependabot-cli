@@ -8,24 +8,50 @@ type Update = {
         timezone?: string;
     };
     'target-branch'?: string;
+    vendor?: boolean;
     registries?: string[];
-    ignore?: string[];
+    'open-pull-requests-limit'?: number;
+    'rebase-strategy'?: 'auto' | 'disabled';
     labels?: string[];
     assignees?: string[];
     reviewers?: string[];
-    'commit-message'?: string;
+    'insecure-external-code-execution'?: 'allow';
+    'pull-request-branch-name'?: {
+        separator: '-' | '_' | '/';
+    };
+    groups?: Record<
+        string,
+        {
+            // any of
+            'applies-to'?: 'version-updates' | 'security-updates';
+            'dependency-type'?: 'development' | 'production';
+            patterns?: string[];
+            'exclude-patterns'?: string[];
+            'update-types'?: 'major' | 'minor' | 'patch';
+        }
+    >;
+    'commit-message'?: {
+        // any of
+        prefix?: string;
+        'prefix-development'?: string;
+        include?: 'scope' | 'dependencies';
+    };
     'commit-prefix'?: string;
     allow?: {
-        'dependency-name': {
-            'dependency-type': string;
-            versions: string[];
-        };
-    };
-    'update-types'?: [
-        | 'version-update:semver-major'
-        | 'version-update:semver-minor'
-        | 'version-update:semver-patch',
-    ];
+        // any of
+        'dependency-name'?: string;
+        'dependency-type'?: undefined;
+    }[];
+    ignore?: {
+        // any of
+        'dependency-name'?: string;
+        versions?: string[];
+        'update-types'?: [
+            | 'version-update:semver-major'
+            | 'version-update:semver-minor'
+            | 'version-update:semver-patch',
+        ];
+    }[];
     'versioning-strategy'?:
         | 'auto'
         | 'widen'
