@@ -1,5 +1,11 @@
 # @bugron/validate-dependabot-yaml
 
+## 0.1.3
+
+### Patch Changes
+
+-   61b0a17: Fix the format option helper text, update usage
+
 ## 0.1.2
 
 ### Patch Changes
