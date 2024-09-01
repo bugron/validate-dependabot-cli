@@ -1,6 +1,6 @@
 {
     "name": "@bugron/validate-dependabot-yaml",
-    "version": "1.1.2",
+    "version": "0.0.0",
     "private": true,
     "description": "CLI for validating Dependabot v2 YAML configuration files",
     "main": "dist/run.js",
