@@ -9,22 +9,36 @@ This CLI allows you to find some problems even before committing dependabot.yml.
 ## Usage
 
 ```
-$ npx @bugron/validate-dependabot-yaml <path>
+$ npx @bugron/validate-dependabot-yaml@latest --help
 
-Path
-Path to the dependabot configuration file relative to current working directory, .github/dependabot.yml by default
+  CLI for validating Dependabot v2 YAML configuration files
 
-Options
---format, -f  Logger type (json, markdown)
---pretty, -p  Only for json logger, prettify JSON output
+  Usage
+    $ npx @bugron/validate-dependabot-yaml [path]
 
-Output
-Success: process exits with status 0, no output is logged
-Failure: process exits with status 1, JSON or Markdown formatted validation error messages are logged
+  [path]
+    Optional path to dependabot configuration file relative to current working directory (default: .github/dependabot.yml)
 
-Examples
-$ npx @bugron/validate-dependabot-yaml .github/dependabot.yml --format=json --pretty
+  Options
+    --format, -f    Logger type, either json or markdown (default: markdown)
+    --pretty, -p    Only used for json logger, prettifies JSON output
+
+  Output
+    Success: process exits with status 0, no output is logged
+    Failure: process exits with status 1, JSON or Markdown formatted validation error messages are logged
+
+  Examples
+    $ npx @bugron/validate-dependabot-yaml
+    $ npx @bugron/validate-dependabot-yaml config/dependabot.yaml
+    $ npx @bugron/validate-dependabot-yaml .github/dependabot.yml --f=json --p
+    $ npx @bugron/validate-dependabot-yaml .github/dependabot.yml --format=json --pretty
+    $ npx @bugron/validate-dependabot-yaml .github/dependabot.yml --f=markdown
+    $ npx @bugron/validate-dependabot-yaml .github/dependabot.yml --format=markdown
 ```
+
+## Test coverage
+
+The validation logic is tested on almost all cases/examples from the [official documentation](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file) and more.
 
 ## Any problem?
 
