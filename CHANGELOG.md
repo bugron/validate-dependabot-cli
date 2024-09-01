@@ -1,5 +1,11 @@
 # @bugron/validate-dependabot-yaml
 
+## 0.1.2
+
+### Patch Changes
+
+-   47367df: Minor updates
+
 ## 0.1.1
 
 ### Patch Changes
