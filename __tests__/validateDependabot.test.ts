@@ -3,7 +3,7 @@ import { test, describe, expect, vi } from 'vitest';
 import path from 'node:path';
 import { readFileSync, readdirSync } from 'node:fs';
 import { validateDependabotYaml } from '../src/validateDependabotYaml.js';
-import v2Schema from './dependabot-2.0.json';
+import v2Schema from './dependabot-2.0.json' with { type: 'json' };
 
 vi.mock('../src/fetchSchema.js', () => ({
     fetchSchema: () => v2Schema,
@@ -163,6 +163,28 @@ describe('validateDependabot', () => {
                     },
                     message:
                         "Update configs must have a unique combination of 'package-ecosystem', 'directory', and 'target-branch'",
+                },
+            ],
+        });
+    });
+
+    test('with errors: __tests__/configs/dependabot-error-dependency-type-groups.yml', async () => {
+        const errorConfig = readConfig(
+            '__tests__/configs/dependabot-error-dependency-type-groups.yml',
+        );
+
+        expect(await validateDependabotYaml(errorConfig)).toEqual({
+            message: `failure`,
+            errors: [
+                {
+                    keyword: 'customError',
+                    dataPath: '.dependency-type',
+                    schemaPath: '#/customError',
+                    params: {
+                        propertyName: 'customError',
+                    },
+                    message:
+                        "'dependency-type' option is only supported for the following package ecosystems: bundler,composer,mix,maven,npm,pip",
                 },
             ],
         });
