@@ -15,8 +15,8 @@
     },
     "scripts": {
         "build": "tsc",
-        "bundle": "tsup",
-        "dev": "tsup --watch",
+        "bundle": "tsdown",
+        "dev": "tsdown --watch",
         "format": "prettier --write **/*.ts",
         "format-check": "prettier --check **/*.ts",
         "lint": "eslint src/**/*.ts",
@@ -60,7 +60,7 @@
         "prettier": "3.2.5",
         "release-it": "^17.5.0",
         "ts-jest": "^29.1.1",
-        "tsup": "^8.2.4",
+        "tsdown": "^0.15.2",
         "typescript": "^5.4.5",
         "vitest": "^2.0.5"
     }

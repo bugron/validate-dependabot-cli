@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsup';
+import { defineConfig } from 'tsdown';
 
 export default defineConfig({
     entry: ['src/run.ts'],
@@ -9,5 +9,4 @@ export default defineConfig({
     clean: true,
     minify: true,
     dts: false,
-    splitting: false,
 });
