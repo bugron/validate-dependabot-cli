@@ -189,4 +189,40 @@ describe('validateDependabot', () => {
             ],
         });
     });
+
+    test('with errors: __tests__/configs/dependabot-error-cooldown-semver.yml', async () => {
+        const errorConfig = readConfig(
+            '__tests__/configs/dependabot-error-cooldown-semver.yml',
+        );
+
+        expect(await validateDependabotYaml(errorConfig)).toEqual({
+            message: `failure`,
+            errors: [
+                {
+                    keyword: 'unsupportedCooldownSemVer',
+                    dataPath: '/updates/0/cooldown/semver-major-days',
+                    message:
+                        "The 'semver-major-days' option in 'cooldown' is not supported for the 'devcontainers' package ecosystem.",
+                    params: {},
+                    schemaPath: '#/customError',
+                },
+                {
+                    dataPath: '/updates/0/cooldown/semver-minor-days',
+                    keyword: 'unsupportedCooldownSemVer',
+                    message:
+                        "The 'semver-minor-days' option in 'cooldown' is not supported for the 'devcontainers' package ecosystem.",
+                    params: {},
+                    schemaPath: '#/customError',
+                },
+                {
+                    dataPath: '/updates/0/cooldown/semver-patch-days',
+                    keyword: 'unsupportedCooldownSemVer',
+                    message:
+                        "The 'semver-patch-days' option in 'cooldown' is not supported for the 'devcontainers' package ecosystem.",
+                    params: {},
+                    schemaPath: '#/customError',
+                },
+            ],
+        });
+    });
 });

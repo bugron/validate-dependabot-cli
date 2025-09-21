@@ -30,6 +30,11 @@ type Update = {
             'update-types'?: 'major' | 'minor' | 'patch';
         }
     >;
+    cooldown?: {
+        'semver-major-days'?: number;
+        'semver-minor-days'?: number;
+        'semver-patch-days'?: number;
+    };
     'commit-message'?: {
         // any of
         prefix?: string;
