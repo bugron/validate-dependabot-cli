@@ -1,4 +1,10 @@
-This CLI tests the dependabot.yml against the [official v2 JSON schema](https://json.schemastore.org/dependabot-2.0.json). It does not detect all invalid dependabot files as dependabot has extra validation beyond the JSON schema.
+This CLI tests the dependabot.yml against the [official v2 JSON schema](https://json.schemastore.org/dependabot-2.0.json). It does not detect ALL invalid dependabot files as dependabot has extra validation beyond the JSON schema.
+
+In addition to validating Dependabot configuration files against the schema, this tool also implements the following validations:
+
+- Directory/directories values must be unique and cannot overlap with the directory or directories entries in blocks that have the same ecosystem and target-branch. [Docs](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#directory)
+- Ensures that dependency-type option is used with supported package ecosystems. [Docs](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference#dependency-type-groups)
+- Ensures cooldown semver-major-days, semver-minor-days, semver-patch-days options are used with supported package ecosystems [Docs](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference#configuration-of-cooldown)
 
 ## Why?
 
