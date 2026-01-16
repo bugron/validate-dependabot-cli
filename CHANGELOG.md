@@ -1,5 +1,11 @@
 # @bugron/validate-dependabot-yaml
 
+## 0.3.2
+
+### Patch Changes
+
+- 7a03bc2: Update tsdown build config and add provenance publishing
+
 ## 0.3.1
 
 ### Patch Changes
