@@ -7,6 +7,7 @@ export default defineConfig({
     platform: 'node',
     outDir: 'dist',
     clean: true,
-    minify: true,
+    minify: false,
+    unbundle: false,
     dts: false,
 });
