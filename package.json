@@ -10,6 +10,10 @@
     "files": [
         "dist"
     ],
+    "publishConfig": {
+        "provenance": true,
+        "access": "public"
+    },
     "engines": {
         "node": ">=20"
     },
@@ -24,9 +28,10 @@
         "test:coverage": "pnpm test -- --coverage",
         "test": "vitest run",
         "build_test": "tsc && pnpm test",
-        "all": "pnpm build && pnpm format-check && pnpm lint && pnpm bundle && pnpm test",
+        "all": "pnpm build && pnpm format-check && pnpm lint && pnpm test && pnpm bundle",
         "prepublishOnly": "pnpm all",
-        "local-release": "pnpm all && changeset && changeset version && changeset publish"
+        "release:ci": "pnpm all && changeset publish",
+        "release:local": "pnpm all && changeset && changeset version && changeset publish"
     },
     "repository": {
         "type": "git",
