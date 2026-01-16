@@ -1,5 +1,11 @@
 # @bugron/validate-dependabot-yaml
 
+## 0.3.3
+
+### Patch Changes
+
+- 3fd683f: Fix workflow access to write to the repo
+
 ## 0.3.2
 
 ### Patch Changes
