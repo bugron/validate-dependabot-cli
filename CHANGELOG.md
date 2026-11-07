@@ -1,5 +1,11 @@
 # @bugron/validate-dependabot-yaml
 
+## 0.3.4
+
+### Patch Changes
+
+- 1e4af4b: Reject YAML aliases in Dependabot configurations
+
 ## 0.3.3
 
 ### Patch Changes
