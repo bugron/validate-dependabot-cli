@@ -1,4 +1,4 @@
-This CLI tests the dependabot.yml against the [official v2 JSON schema](https://json.schemastore.org/dependabot-2.0.json). It does not detect ALL invalid dependabot files as dependabot has extra validation beyond the JSON schema.
+This CLI tests the dependabot.yml against a bundled copy of the [official v2 JSON schema](https://json.schemastore.org/dependabot-2.0.json). It does not detect ALL invalid dependabot files as dependabot has extra validation beyond the JSON schema.
 
 In addition to validating Dependabot configuration files against the schema, this tool also implements the following validations:
 
@@ -9,7 +9,7 @@ In addition to validating Dependabot configuration files against the schema, thi
 ## Why?
 
 If you get a validation error when editing your config, you won't know if there's a problem until the next dependabot runs.
-Even if the cycle is long and the alarm is not set, it may be detected much later.
+And if the cycle is long and the alarm is not set, it may be detected much later.
 This CLI allows you to find some problems even before committing dependabot.yml.
 
 ## Usage

@@ -1,29 +1,21 @@
 name: 'build-test'
 on: 'pull_request'
 
+permissions:
+  contents: read
+
 jobs:
-  build: # make sure build/ci work properly
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: |
-          yarn install
-      - run: |
-          yarn run all
-  test: # make sure the action works on a clean machine without building
-    permissions:
-      pull-requests: "write"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./
-        id: validate
-      - uses: marocchino/sticky-pull-request-comment@v2
-        if: always()
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
         with:
-          header: validate-dependabot
-          message: |
-            ${{ steps.validate.outputs.markdown }}
-            ```json
-            ${{ steps.validate.outputs.raw }}
-            ```
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm all
+      - run: node dist/run.js __tests__/configs/success/cooldown.yml

@@ -60,7 +60,7 @@
         "eslint-plugin-github": "^4.10.2",
         "eslint-plugin-jest": "^28.14.0",
         "eslint-plugin-prettier": "^5.5.4",
-        "js-yaml": "^4.1.0",
+        "js-yaml": "^4.1.1",
         "meow": "^13.2.0",
         "prettier": "3.6.2",
         "release-it": "^17.11.0",
