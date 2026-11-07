@@ -1,5 +1,12 @@
 import YAML from 'yaml';
 
+export class UnsupportedYamlAliasError extends Error {
+    constructor() {
+        super('YAML aliases are not supported');
+        this.name = 'UnsupportedYamlAliasError';
+    }
+}
+
 type Update = {
     'package-ecosystem': string;
     schedule: {
@@ -95,5 +102,17 @@ type DependabotYaml = {
 export function parseDependabotYaml(
     dependabotYamlContents: string,
 ): DependabotYaml {
-    return YAML.parse(dependabotYamlContents);
+    const document = YAML.parseDocument(dependabotYamlContents);
+    if (document.errors.length) {
+        throw document.errors[0];
+    }
+
+    // Inspect syntax before toJS() expands aliases and loses their identity.
+    YAML.visit(document, {
+        Alias() {
+            throw new UnsupportedYamlAliasError();
+        },
+    });
+
+    return document.toJS();
 }

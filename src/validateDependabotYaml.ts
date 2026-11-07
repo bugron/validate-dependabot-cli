@@ -1,5 +1,8 @@
 import Ajv, { type ErrorObject } from 'ajv';
-import { parseDependabotYaml } from './parseDependabotYaml.js';
+import {
+    parseDependabotYaml,
+    UnsupportedYamlAliasError,
+} from './parseDependabotYaml.js';
 import { customValidations } from './customValidations.js';
 import { fetchSchema } from './fetchSchema.js';
 
@@ -12,7 +15,27 @@ export async function validateDependabotYaml(
 }> {
     const ajv = new Ajv({ extendRefs: true, allErrors: true });
 
-    const json = parseDependabotYaml(dependabotYamlContents);
+    let json: ReturnType<typeof parseDependabotYaml>;
+    try {
+        json = parseDependabotYaml(dependabotYamlContents);
+    } catch (error) {
+        if (!(error instanceof UnsupportedYamlAliasError)) {
+            throw error;
+        }
+
+        return {
+            message: 'failure',
+            errors: [
+                {
+                    keyword: 'yamlAliases',
+                    dataPath: '',
+                    schemaPath: '#/yamlAliases',
+                    params: {},
+                    message: error.message,
+                },
+            ],
+        };
+    }
     const customErrors = customValidations(json);
 
     let schema = v2Schema;
