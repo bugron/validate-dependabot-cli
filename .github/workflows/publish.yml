@@ -10,6 +10,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions:
     contents: write # https://github.com/actions/setup-node/tree/v4/?tab=readme-ov-file#recommended-permissions
     id-token: write # https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
+    pull-requests: write
 
 jobs:
     publish:
